@@ -43,12 +43,49 @@ const registerUsuario = async (req, res) =>{
         })       
     }
 
+};
+
+const loginUsuario = async (req, res) =>{
+    const { email, password } = req.body;
+
+    try {
+        let usuario = await usuarioModel.findOne({ email })
+
+       if (!usuario) {
+           return res.status(401).json({ msg: "Usuario o contraseña incorrecto"})           
+       }
+
+       const contraseñaValida = bcryptjs.compareSync(password, usuario.password)
+
+       if (!contraseñaValida) {
+        return res.status(401).json({ msg: "Usuario o contraseña incorrecto"})           
+    }
+
+    const payload = {
+        id: usuario.id
+    }    
+    jwt.sign(payload, process.env.SECRETA_PALABRA, {expiresIn:60*60*24}, (error, token)=>{
+        res.json({
+            ok: true,
+            id: usuario.id,             
+            username: usuario.username, 
+            lastname: usuario.lastname,              
+            msg: "Inicio de sección",
+            token
+        });        
+    });      
+        
+    } catch (error) {
+        res.json({
+            ok: false,            
+            msg: "Error al loguearse "
+        })       
+    }
+
 }
 
 
-
-
-
 module.exports = {   
-    registerUsuario
+    registerUsuario,
+    loginUsuario
 }

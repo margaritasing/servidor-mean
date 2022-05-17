@@ -1,10 +1,11 @@
 const { Router } = require("express");
+const { registerUsuario } = require("../controllers/authController");
 
 const authRouter = Router()
 
-authRouter.get("/login", (req, res) => {
-    res.send('hola')
-});
+
+
+authRouter.post("/register", registerUsuario)
 
 
 

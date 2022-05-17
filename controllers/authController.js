@@ -1,3 +1,5 @@
+const bcryptjs = require("bcryptjs");
+
 const usuarioModel = require("../models/User.js")
 
 
@@ -11,11 +13,16 @@ const registerUsuario = async (req, res) =>{
        }
        const nuevoUsuario = new usuarioModel({ email, password, username, lastname, imageUser })
 
+       //implementacion de el encriptado de la contraseña 
+       const passwordHash = bcryptjs.hashSync(password, 10);
+       nuevoUsuario.password = passwordHash;
+       
+
        await nuevoUsuario.save()
 
        res.json({
            ok: true,
-           email, password, username, lastname, imageUser,
+           email, passwordHash, username, lastname, imageUser,
            msg: "Usuario registrado"
        })        
     } catch (error) {

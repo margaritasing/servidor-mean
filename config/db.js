@@ -1,7 +1,7 @@
  
-const mongoose = require("mongoose");
+const conexionDb = require("mongoose");
 
-mongoose.connect(process.env.MONGO_URI,
+conexionDb.connect(process.env.MONGO_URI,
     {
         useUnifiedTopology:true,
         useNewUrlParser:true
@@ -13,4 +13,4 @@ mongoose.connect(process.env.MONGO_URI,
 
 
 
-module.exports = mongoose;
+module.exports = conexionDb;

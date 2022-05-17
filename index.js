@@ -1,15 +1,14 @@
 const express = require("express");
+const authRouter = require("./routes/auth.js");
+
 const app = express();
+require("dotenv").config()
 
 
-app.use("*", express.static(__dirname + "/public")) //para que no exista problema con el pack         
+app.use("/", express.static(__dirname + "/public")) //para que no exista problema con el pack         
+app.use("/auth", authRouter);
 
 
-app.get("/", (req, res) => {
-    res.send("acceso jodido")
-})
-
-
-app.listen(3000, () => { 
-    console.log("Aplicacion corriendo en el puerto 3000");
+app.listen(process.env.PORT, () => { 
+    console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
 })

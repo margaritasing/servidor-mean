@@ -1,11 +1,14 @@
 const {Router} = require("express");
-const { createTarea } = require("../controllers/tareaController");
+const { createTarea, readTarea} = require("../controllers/tareaController");
 const verifyToken = require("../middlewares/verifyToken")
 
 const taskRouter = Router();
 
 
-taskRouter.post("/create",[verifyToken],  createTarea)
+taskRouter.post("/create",[verifyToken],  createTarea);
+
+taskRouter.get("/read", [verifyToken], readTarea);
+
 
 
 

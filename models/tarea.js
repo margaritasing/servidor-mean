@@ -13,7 +13,7 @@ const tareaSchema = new mongoose.Schema({
     creator:{
             type: mongoose.SchemaTypes.ObjectId, 
             require:true,
-            required: false},
+            ref: "User"},
     createAt:{
              type:Date, 
              default: Date.now()

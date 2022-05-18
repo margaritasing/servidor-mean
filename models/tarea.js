@@ -6,6 +6,10 @@ const tareaSchema = new mongoose.Schema({
          type:String, 
          require:true,
          trim:true},
+    descripcion:{
+            type:String, 
+            require:true,
+            trim:true},
     creator:{
             type: mongoose.SchemaTypes.ObjectId, 
             require:true,
@@ -15,9 +19,8 @@ const tareaSchema = new mongoose.Schema({
              default: Date.now()
              },        
      
-},
+}
 
-{ timestamps: true }
 )
 const Tarea = mongoose.model("tarea",tareaSchema)
 
